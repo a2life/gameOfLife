@@ -2,6 +2,8 @@ import {useEffect, useState} from "preact/hooks";
 import {PushButton} from "./components/pushButton";
 import {Cell} from "./components/llifecell";
 import {GameOfLife} from "./components/rules";
+import {JSXInternal} from "preact/src/jsx";
+
 
 export const ROWMAX = 50
 export const COLMAX = 50
@@ -16,8 +18,7 @@ for (let x = 0; x < COLMAX; x++) {
 }
 const initialGrid = () => rows.map(() => (columns.map(() => false)))
 const player = new GameOfLife(initialGrid())
-const densitySetter = 'densitySetter'
-const speedSetter = 'speedSetter'
+
 let timer: any;
 
 export function App() {
@@ -30,7 +31,7 @@ export function App() {
     const cellClickHandler = (row: number, col: number) => {
         let tempGrid = gridState;
         tempGrid[row][col] = !gridState[row][col];
-        setGridState([...tempGrid]); //needed to make preact aware that array value has changed
+        setGridState(JSON.parse(JSON.stringify(tempGrid))); //needed to make preact aware that array value has changed
 
     }
 
@@ -58,13 +59,11 @@ export function App() {
     }
 
 
-    const timerSliderHandler = () => {
-        const domTarget = document.getElementById(speedSetter) as HTMLInputElement;
-        setReproductionTime(parseInt(domTarget.value));
+    const timerSliderHandler = (e: Event) => {
+        setReproductionTime(parseInt((e.target as HTMLInputElement).value));
     }
-    const densitySliderHandler = () => {
-        const domTarget = document.getElementById(densitySetter) as HTMLInputElement;
-        setRandomizedDensity(parseInt(domTarget.value));
+    const densitySliderHandler = (e: Event) => {
+        setRandomizedDensity(parseInt((e.target as HTMLInputElement).value));
     }
     useEffect(() => {
         if (playing) {  //if playing, this will cause the while true loop as gridState will change after each timer call back.
@@ -107,19 +106,17 @@ export function App() {
                 <input type='range'
                        min="0" max="10" step="1"
                        value={randomizeDensity}
-
                        onInput={densitySliderHandler}
-                       id={densitySetter}
+
                 />
             </div>
             <div>
                 <label>ReProduction Speed</label>
                 <input type='range'
-                       min="100" max="1000" step="100"
+                       min="50" max="1000" step="50"
                        value={reproductionTime}
-
                        onInput={timerSliderHandler}
-                       id={speedSetter}
+
                 />
             </div>
         </>
