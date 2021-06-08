@@ -5,4 +5,4 @@
 
 ### npm install to initialize.
 
-Idea coming from headfast javascript book that used vanilla javascript
+Idea coming from headfirst javascript programming book that used vanilla javascript
