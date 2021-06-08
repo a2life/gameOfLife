@@ -2,7 +2,7 @@ import {useEffect, useState} from "preact/hooks";
 import {PushButton} from "./components/pushButton";
 import {Cell} from "./components/llifecell";
 import {GameOfLife} from "./components/rules";
-import {JSXInternal} from "preact/src/jsx";
+import {Slider} from "./components/slider";
 
 
 export const ROWMAX = 50
@@ -79,7 +79,6 @@ export function App() {
     return (
         <>
             <h2>Game of Life</h2>
-
             <div id="gridContainer">
                 <table>
                     {
@@ -101,24 +100,10 @@ export function App() {
             <PushButton clickFn={startButtonHandler} label={startLabel}/>
             <PushButton clickFn={clearButtonHandler} label="clear"/>
             <PushButton clickFn={randomButtonHandler} label="Randomize"/>
-            <div>
-                <label>Randomize Density</label>
-                <input type='range'
-                       min="0" max="10" step="1"
-                       value={randomizeDensity}
-                       onInput={densitySliderHandler}
-
-                />
-            </div>
-            <div>
-                <label>ReProduction Speed</label>
-                <input type='range'
-                       min="50" max="1000" step="50"
-                       value={reproductionTime}
-                       onInput={timerSliderHandler}
-
-                />
-            </div>
+            <Slider value={randomizeDensity} min="2" max="8" step="1" clickFn={densitySliderHandler}
+                    label="Population Density"/>
+            <Slider value={reproductionTime} min="50" max="1000" step="50" clickFn={timerSliderHandler}
+                    label="Reproduction Speed"/>
         </>
     )
 }
