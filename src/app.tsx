@@ -39,7 +39,7 @@ export function App() {
         if (playing) {
             setPlaying(false)
             setStartLabel('continue');
-            clearInterval(timer)
+            clearTimeout(timer)
         } else {
             setPlaying(true);
             setStartLabel('stop');
@@ -67,14 +67,14 @@ export function App() {
         setRandomizedDensity(parseInt(domTarget.value));
     }
     useEffect(() => {
-        if (playing) {
-            timer = setInterval(() => {
+        if (playing) {  //if playing, this will cause the while true loop as gridState will change after each timer call back.
+            timer = setTimeout(() => {
                 const nextGrid = player.computeNextGrid((gridState));
                 setGridState(JSON.parse(JSON.stringify(nextGrid)))
                 console.log('play called')
             }, reproductionTime)
         }
-        return () => clearInterval(timer)
+        return () => clearTimeout(timer)
     }, [playing, gridState]);
 
     return (
