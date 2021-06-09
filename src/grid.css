@@ -1,13 +1,17 @@
 body {
     padding: 20px;
-    background-color: #444;
+
 }
 
 #gridContainer {
-    padding-bottom: 10px;
+    padding: 10px;
+    max-width: 730px;
+    background-color: #444;
+    border-radius: 5px;
 }
 
 table {
+    margin: 10px;
     background-color: gray;
     border-spacing: 0px;
 }
