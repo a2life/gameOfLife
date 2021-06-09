@@ -8,16 +8,19 @@ import {Slider} from "./components/slider";
 export const ROWMAX = 50
 export const COLMAX = 50
 
-const rows: number[] = new Array(ROWMAX)
+const rows: number[] = [];
+
 
 for (let x = 0; x < ROWMAX; x++) {
     rows[x] = x;
 }
+
 const columns: number[] = [];
 for (let x = 0; x < COLMAX; x++) {
     columns[x] = x;
 }
-const initialGrid = () => rows.map(() => (columns.map(() => false)))
+ const initialGrid = () => rows.map(() => (columns.map(() => false)))
+// const initialGrid = () => Array(ROWMAX).fill(0).map(x => Array(COLMAX).fill(false));
 const player = new GameOfLife(initialGrid())
 
 let timer: any;
@@ -28,7 +31,8 @@ export function App() {
     const [playing, setPlaying] = useState(false)
     const [startLabel, setStartLabel] = useState("start");
     const [gridState, setGridState] = useState(initialGrid())
-    const randomizeGrid = () => rows.map(() => (columns.map(() => (Math.random() < randomizeDensity / 10))))
+     const randomizeGrid = () => rows.map(() => (columns.map(() => (Math.random() < randomizeDensity / 10))))
+   // const randomizeGrid = () => Array(ROWMAX).fill(0).map(x => Array(COLMAX).fill(0).map(() => (Math.random() < randomizeDensity / 10)))
     const cellClickHandler = (row: number, col: number) => {
         let tempGrid = gridState;
         tempGrid[row][col] = !gridState[row][col];
