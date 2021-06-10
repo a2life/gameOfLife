@@ -9,9 +9,6 @@ export const ROWMAX = 50
 export const COLMAX = 50
 
 const rows: number[] = [];
-
-
-const rows: number[] = [];
 for (let x = 0; x < ROWMAX; x++) {
     rows[x] = x;
 }
