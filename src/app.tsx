@@ -8,17 +8,19 @@ import {Slider} from "./components/slider";
 export const ROWMAX = 50
 export const COLMAX = 50
 
-const rows: number[] = [];
+const rowIndeces: number[] = [];
 for (let x = 0; x < ROWMAX; x++) {
-    rows[x] = x;
+    rowIndeces[x] = x;
 }
 
-const columns: number[] = [];
+const columnIndeces: number[] = [];
 for (let x = 0; x < COLMAX; x++) {
-    columns[x] = x;
+    columnIndeces[x] = x;
 }
- const initialGrid = () => rows.map(() => (columns.map(() => false)))
-// const initialGrid = () => Array(ROWMAX).fill(0).map(x => Array(COLMAX).fill(false));
+
+
+ const initialGrid = () => rowIndeces.map(() => (columnIndeces.map(() => false)))
+//const initialGrid = () => Array(ROWMAX).fill(0).map(x => Array(COLMAX).fill(false));
 const player = new GameOfLife(initialGrid())
 
 let timer: any;
@@ -29,8 +31,8 @@ export function App() {
     const [playing, setPlaying] = useState(false)
     const [startLabel, setStartLabel] = useState("start");
     const [gridState, setGridState] = useState(initialGrid())
-     const randomizeGrid = () => rows.map(() => (columns.map(() => (Math.random() < randomizeDensity / 10))))
-   // const randomizeGrid = () => Array(ROWMAX).fill(0).map(x => Array(COLMAX).fill(0).map(() => (Math.random() < randomizeDensity / 10)))
+      const randomizeGrid = () => rowIndeces.map(() => (columnIndeces.map(() => (Math.random() < randomizeDensity / 10))))
+  //  const randomizeGrid = () => Array(ROWMAX).fill(0).map(x => Array(COLMAX).fill(0).map(() => (Math.random() < randomizeDensity / 10)))
     const cellClickHandler = (row: number, col: number) => {
         let tempGrid = gridState;
         tempGrid[row][col] = !gridState[row][col];
@@ -85,9 +87,11 @@ export function App() {
             <div id="gridContainer">
                 <table>
                     {
-                        rows.map((row: number) => (
+                      //  Array(ROWMAX).fill(null).map((rowEle, row) => (
+                        rowIndeces.map(( row) => (
                                 <tr>
-                                    {columns.map((col: number) => (
+                                 {columnIndeces.map(( col: number) => (
+
                                             <Cell fn={cellClickHandler}
                                                   col={col}
                                                   row={row}
